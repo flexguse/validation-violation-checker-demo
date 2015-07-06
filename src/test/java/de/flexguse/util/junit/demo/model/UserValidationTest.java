@@ -25,7 +25,6 @@ package de.flexguse.util.junit.demo.model;
  * #L%
  */
 
-
 import java.util.Arrays;
 import java.util.Set;
 
@@ -54,7 +53,7 @@ public class UserValidationTest {
 	@Autowired
 	private Validator validator;
 
-	private ValidationViolationChecker<User> userValidationChecker = new ValidationViolationChecker<>();
+	private ValidationViolationChecker<User> checker = new ValidationViolationChecker<>();
 
 	/**
 	 * Tests if an empty User is validated correctly.
@@ -67,9 +66,8 @@ public class UserValidationTest {
 				.validate(User.builder().build());
 
 		// do the validation expectation check
-		userValidationChecker.checkExpectedValidationViolations(
-				validationErrors, Arrays.asList(UserErrorMessages.NO_EMAIL,
-						UserErrorMessages.NO_LOGIN,
+		checker.checkExpectedValidationViolations(validationErrors, Arrays
+				.asList(UserErrorMessages.NO_EMAIL, UserErrorMessages.NO_LOGIN,
 						UserErrorMessages.NO_PASSWORD));
 
 	}
@@ -89,9 +87,8 @@ public class UserValidationTest {
 				.validate(user);
 
 		// do the validation expectation check
-		userValidationChecker.checkExpectedValidationViolations(
-				validationErrors, Arrays.asList(
-						UserErrorMessages.INVALID_EMAIL,
+		checker.checkExpectedValidationViolations(validationErrors, Arrays
+				.asList(UserErrorMessages.INVALID_EMAIL,
 						UserErrorMessages.TOO_SHORT_LOGIN,
 						UserErrorMessages.TOO_SHORT_PASSWORD));
 
@@ -113,8 +110,8 @@ public class UserValidationTest {
 				.validate(user);
 
 		// do the validation expectation check
-		userValidationChecker.checkExpectedValidationViolations(
-				validationErrors, Arrays.asList(AddressErrorMessages.NO_CITY,
+		checker.checkExpectedValidationViolations(validationErrors, Arrays
+				.asList(AddressErrorMessages.NO_CITY,
 						AddressErrorMessages.NO_COUNTRY,
 						AddressErrorMessages.NO_HOUSENUMBER,
 						AddressErrorMessages.NO_STREET,

@@ -25,7 +25,6 @@ package de.flexguse.util.junit.demo.service.impl;
  * #L%
  */
 
-
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
@@ -57,14 +56,10 @@ public class UserServiceImplTest {
 	@Autowired
 	private UserService userService;
 
-	@SuppressWarnings("rawtypes")
-	private ValidationViolationChecker validationChecker = new ValidationViolationChecker();
-
 	/**
 	 * Tests if the invalid user object is validated correctly when calling the
 	 * {@link UserService}.
 	 */
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testInvalidUserServiceMethodValidation() {
 
@@ -72,10 +67,10 @@ public class UserServiceImplTest {
 			userService.saveUser(User.builder().build());
 			fail("expected to get validation errors when calling method");
 		} catch (ConstraintViolationException e) {
-			validationChecker.checkExpectedValidationViolations(e
-					.getConstraintViolations(), Arrays.asList(
-					UserErrorMessages.NO_EMAIL, UserErrorMessages.NO_LOGIN,
-					UserErrorMessages.NO_PASSWORD));
+			ValidationViolationChecker.checkExpectedValidationViolations(e,
+					Arrays.asList(UserErrorMessages.NO_EMAIL,
+							UserErrorMessages.NO_LOGIN,
+							UserErrorMessages.NO_PASSWORD));
 		}
 
 	}
